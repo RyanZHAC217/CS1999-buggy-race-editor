@@ -3,16 +3,19 @@
 {% extends "base.html" %}
 
 {% block content %}
-
-  <h1>Make buggy</h1>
+<div class="content">
+  <h1 class="title">Make buggy</h1>
   <form action="/new" method="post">
     <label for="qty_wheels">Number of wheels:</label>
     <input type="text" name="qty_wheels" />
+    <br>
 	<label for="flag_color">Colour of flag:</label>
 	<input type="text" name="flag_color" />
+  <br>
     <input type="submit" class="button">
   </form>
   <p>
-    <a href="/" class="button">home</a>
+    <a href="/" class="button">Home</a>
    </p>
+</div>
 {% endblock %}

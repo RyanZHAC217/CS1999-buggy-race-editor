@@ -62,3 +62,7 @@ table td, table th {
 .spacer {
   margin: 3em 0;
 }
+.title {
+  color: red;
+  text-decoration: underline;
+}
