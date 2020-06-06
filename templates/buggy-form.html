@@ -7,10 +7,10 @@
   <h1 class="title">Make buggy</h1>
   <form action="/new" method="post">
     <label for="qty_wheels">Number of wheels:</label>
-    <input type="text" name="qty_wheels" />
+    <input type="text" name="qty_wheels" value="{{ record['qty_wheels'] }}"/>
     <br>
 	<label for="flag_color">Colour of flag:</label>
-	<input type="text" name="flag_color" />
+	<input type="text" name="flag_color" value="{{record['flag_color'] }}"/>
   <br>
     <input type="submit" class="button">
   </form>
