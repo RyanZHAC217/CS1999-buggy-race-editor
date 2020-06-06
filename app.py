@@ -26,20 +26,28 @@ def create_buggy():
     return render_template("buggy-form.html")
   elif request.method == 'POST':
     msg=""
-    try:
-      qty_wheels = request.form['qty_wheels']
-      flag_color = request.form['flag_color']
-      msg = "qty_wheels={qty_wheels}" 
-      with sql.connect(DATABASE_FILE) as con:
-         cur = con.cursor()
-         cur.execute("UPDATE buggies set qty_wheels=? , flag_color=? WHERE id=?", (qty_wheels, flag_color, DEFAULT_BUGGY_ID))
-         con.commit()
-         msg = "Record successfully saved"
-    except:
-      con.rollback()
-      msg = "error in update operation"
-    finally:
-      con.close()
+    qty_wheels = request.form['qty_wheels']
+    flag_color = request.form['flag_color']
+    if qty_wheels.isdigit() == True:
+      if int(qty_wheels) % 2 == 0:
+        try:
+          msg = "qty_wheels={qty_wheels}" 
+          with sql.connect(DATABASE_FILE) as con:
+             cur = con.cursor()
+             cur.execute("UPDATE buggies set qty_wheels=? , flag_color=? WHERE id=?", (qty_wheels, flag_color, DEFAULT_BUGGY_ID))
+             con.commit()
+             msg = "Record successfully saved"
+        except:
+          con.rollback()
+          msg = "error in update operation"
+        finally:
+          con.close()
+          return render_template("updated.html", msg = msg)
+      else:
+        msg = "Error, invalid input. Must be an even amount of wheels!"
+        return render_template("updated.html", msg = msg)
+    else:
+      msg = "Error, invalid input. Must be an integer!"
       return render_template("updated.html", msg = msg)
 
 #------------------------------------------------------------
