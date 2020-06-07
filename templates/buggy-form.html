@@ -12,7 +12,126 @@
   	<label for="flag_color">Colour of flag:</label>
   	<input type="text" name="flag_color" value="{{record['flag_color'] }}" placeholder="Enter a colour"/>
     <br>
+    <label for="flag_color_secondary">Second colour of flag:</label>
+    <input type="text" name="flag_color_secondary" value="{{record['flag_color_secondary']}}" placeholder="Enter a second colour"/>
+    <br>
+    <label for="flag_pattern">Flag pattern:</label>
+    <select name="flag_pattern" value="{{ record['flag_pattern'] }}">
+      <option value="plain">Plain</option>
+      <option value="vstripe">Vertical stripes</option>
+      <option value="hstripe">Horizontal stripes</option>
+      <option value="dstripe">Diagonal stripes</option>
+      <option value="checker">Checkered</option>
+      <option value="spot">Spotted</option>
+    </select>
+    <br>
+    <label for="qty_tyres">Number of tyres:</label>
+    <input type="text" name="qty_tyres" value="{{ record['qty_tyres'] }}" placeholder="Enter an integer"/>
+    <br>
+    <label for="tyres">Types of tyres:</label>
+    <select name="tyres" value="{{ record['tyres'] }}">
+      <option value="knobbly">Knobbly</option>
+      <option value="slick">Slick</option>
+      <option value="steelband">Steelband</option>
+      <option value="reactive">Reactive</option>
+      <option value="maglev">Maglev</option>
+    </select>
+    <br>
+    <label for="armour">Armour:</label>
+    <select name="armour" value="{{ record['armour'] }}">
+      <option value="none">None</option>
+      <option value="wood">Wood</option>
+      <option value="aluminium">Aluminium</option>
+      <option value="thinsteel">Thin Steel</option>
+      <option value="thicksteel">Thick Steel</option>
+      <option value="titanium">Titanium</option>
+    </select>
+    <br>
+    <label for="power_type">Primary motive power</label>
+    <select name="power_type" value="{{ record['power_type'] }}">
+      <option value="petrol">Petrol</option>
+      <option value="fusion">Fusion</option>
+      <option value="steam">Steam</option>
+      <option value="bio">Bio</option>
+      <option value="electric">Electric</option>
+      <option value="rocket">Rocket</option>
+      <option value="hamster">Hamster</option>
+      <option value="thermo">Thermo</option>
+      <option value="solar">Solar</option>
+      <option value="wind">Wind</option>
+    </select>
+    <br>
+    <label for="power_units">Primary motive power units</label>
+    <input type="text" name="power_units" value="{{ record['power_units'] }}" placeholder="How much fuel?"/>
+    <br>
+    <label for="aux_power_type">Auxiliary motive power</label>
+    <select name="aux_power_type" value="{{ record['aux_power_type'] }}">
+      <option value="petrol">Petrol</option>
+      <option value="fusion">Fusion</option>
+      <option value="steam">Steam</option>
+      <option value="bio">Bio</option>
+      <option value="electric">Electric</option>
+      <option value="rocket">Rocket</option>
+      <option value="hamster">Hamster</option>
+      <option value="thermo">Thermo</option>
+      <option value="solar">Solar</option>
+      <option value="wind">Wind</option>
+    </select>
+    <br>
+    <label for="aux_power_units">Auxiliary motive power units</label>
+    <input type="text" name="aux_power_units" value="{{ record['aux_power_units'] }}" placeholder="How much auxiliary fuel?"/>
+    <br>
+    <label for="hamster_booster">Hamster booster</label>
+    <input type="text" name="hamster_booster" value="{{ record['hamster_booster'] }}" placeholder="Only for hamster power"/>
+    <br>
+    <label for="attack">Offensive capability</label>
+    <select name="attack" value="{{ record['attack'] }}">
+      <option value="none">None</option>
+      <option value="spike">Spike</option>
+      <option value="flame">Flame</option>
+      <option value="charge">Charge</option>
+      <option value="biohazard">Biohazard</option>
+    </select>
+    <br>
+    <label for="qty_attacks">Number of attacks</label>
+    <input type="text" name="qty_attacks" value="{{ record['qty_attacks'] }}" placeholder="Maximum attacks attempted"/>
+    <br>
+    <label for="fireproof">Fireproof?</label>
+    <select name="fireproof" value="{{ record['fireproof'] }}">
+      <option value="False">False</option>
+      <option value="True">True</option>
+    </select>
+    <br>
+    <label for="insulated">Insulated?</label>
+    <select name="insulated" value="{{ record['insulated'] }}">
+      <option value="False">False</option>
+      <option value="True">True</option>
+    </select>
+    <br>
+    <label for="antibiotic">Antibiotic?</label>
+    <select name="antibiotic" value="{{ record['antibiotic'] }}">
+      <option value="False">False</option>
+      <option value="True">True</option>
+    </select>
+    <br>
+    <label for="banging">Banging sound system?</label>
+    <select name="banging" value="{{ record['banging'] }}">
+      <option value="False">False</option>
+      <option value="True">True</option>
+    </select>
+    <br>
+    <label for="algo">Race computer algorithm</label>
+    <select name="algo" value="{{ record['algo'] }}">
+      <option value="defensive">Defensive</option>
+      <option value="steady">Steady</option>
+      <option value="offensive">Offensive</option>
+      <option value="titfortat">TitforTat</option>
+      <option value="random">Random</option>
+      <option value="buggy">Buggy</option>
+    </select>
+    <br>
     <input type="submit" class="button">
+    <br>
   </form>
   <p>
     <a href="/" class="button">Home</a>

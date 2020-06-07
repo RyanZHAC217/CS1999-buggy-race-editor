@@ -33,20 +33,41 @@ def create_buggy():
     msg=""
     qty_wheels = request.form['qty_wheels']
     flag_color = request.form['flag_color']
+    flag_color_secondary = request.form['flag_color_secondary']
+    flag_pattern = request.form['flag_pattern']
+    qty_tyres = request.form['qty_tyres']
+    tyres = request.form['tyres']
+    armour = request.form['armour']
+    power_type = request.form['power_type']
+    power_units = request.form['power_units']
+    aux_power_type = request.form['aux_power_type']
+    aux_power_units = request.form['aux_power_units']
+    hamster_booster = request.form['hamster_booster']
+    attack = request.form['attack']
+    qty_attacks = request.form['qty_attacks']
+    fireproof = request.form['fireproof']
+    insulated = request.form['insulated']
+    antibiotic = request.form['antibiotic']
+    banging = request.form['banging']
+    algo = request.form['algo']
     if qty_wheels.isdigit() == True:
       if int(qty_wheels) % 2 == 0:
-        try:
-          msg = "qty_wheels={qty_wheels}" 
-          with sql.connect(DATABASE_FILE) as con:
-             cur = con.cursor()
-             cur.execute("UPDATE buggies set qty_wheels=? , flag_color=? WHERE id=?", (qty_wheels, flag_color, DEFAULT_BUGGY_ID))
-             con.commit()
-             msg = "Record successfully saved"
-        except:
-          con.rollback()
-          msg = "error in update operation"
-        finally:
-          con.close()
+        if int(qty_tyres) >= int(qty_wheels):
+          try:
+            msg = "qty_wheels={qty_wheels}" 
+            with sql.connect(DATABASE_FILE) as con:
+               cur = con.cursor()
+               cur.execute("UPDATE buggies set qty_wheels=? , flag_color=?, flag_color_secondary=?, flag_pattern=?, qty_tyres=?, tyres=?, armour=?, power_type=?, power_units=?, aux_power_type=?, aux_power_units=?, hamster_booster=?, attack=?, qty_attacks=?, fireproof=?, insulated=?, antibiotic=?, banging=?, algo=? WHERE id=?", (qty_wheels, flag_color, flag_color_secondary, flag_pattern, qty_tyres, tyres, armour, power_type, power_units, aux_power_type, aux_power_units, hamster_booster, attack, qty_attacks, fireproof, insulated, antibiotic, banging, algo, DEFAULT_BUGGY_ID))
+               con.commit()
+               msg = "Record successfully saved"
+          except:
+            con.rollback()
+            msg = "error in update operation"
+          finally:
+            con.close()
+            return render_template("updated.html", msg = msg)
+        else:
+          msg = "Error, number of tyres must be greater than or equal to number of wheels!"
           return render_template("updated.html", msg = msg)
       else:
         msg = "Error, invalid input. Must be an even amount of wheels!"
