@@ -25,10 +25,7 @@
       <option value="spot">Spotted</option>
     </select>
     <br>
-    <label for="qty_tyres">Number of tyres:</label>
-    <input type="text" name="qty_tyres" value="{{ record['qty_tyres'] }}" placeholder="Enter an integer"/>
-    <br>
-    <label for="tyres">Types of tyres:</label>
+    <label for="tyres">Type of tyres:</label>
     <select name="tyres" value="{{ record['tyres'] }}">
       <option value="knobbly">Knobbly</option>
       <option value="slick">Slick</option>
@@ -36,6 +33,9 @@
       <option value="reactive">Reactive</option>
       <option value="maglev">Maglev</option>
     </select>
+    <br>
+    <label for="qty_tyres">Number of tyres:</label>
+    <input type="text" name="qty_tyres" value="{{ record['qty_tyres'] }}" placeholder="Enter an integer"/>
     <br>
     <label for="armour">Armour:</label>
     <select name="armour" value="{{ record['armour'] }}">
@@ -47,7 +47,7 @@
       <option value="titanium">Titanium</option>
     </select>
     <br>
-    <label for="power_type">Primary motive power</label>
+    <label for="power_type">Primary motive power:</label>
     <select name="power_type" value="{{ record['power_type'] }}">
       <option value="petrol">Petrol</option>
       <option value="fusion">Fusion</option>
@@ -61,10 +61,10 @@
       <option value="wind">Wind</option>
     </select>
     <br>
-    <label for="power_units">Primary motive power units</label>
+    <label for="power_units">Primary motive power units:</label>
     <input type="text" name="power_units" value="{{ record['power_units'] }}" placeholder="How much fuel?"/>
     <br>
-    <label for="aux_power_type">Auxiliary motive power</label>
+    <label for="aux_power_type">Auxiliary motive power:</label>
     <select name="aux_power_type" value="{{ record['aux_power_type'] }}">
       <option value="petrol">Petrol</option>
       <option value="fusion">Fusion</option>
@@ -78,13 +78,13 @@
       <option value="wind">Wind</option>
     </select>
     <br>
-    <label for="aux_power_units">Auxiliary motive power units</label>
+    <label for="aux_power_units">Auxiliary motive power units:</label>
     <input type="text" name="aux_power_units" value="{{ record['aux_power_units'] }}" placeholder="How much auxiliary fuel?"/>
     <br>
-    <label for="hamster_booster">Hamster booster</label>
+    <label for="hamster_booster">Hamster booster:</label>
     <input type="text" name="hamster_booster" value="{{ record['hamster_booster'] }}" placeholder="Only for hamster power"/>
     <br>
-    <label for="attack">Offensive capability</label>
+    <label for="attack">Offensive capability:</label>
     <select name="attack" value="{{ record['attack'] }}">
       <option value="none">None</option>
       <option value="spike">Spike</option>
@@ -93,34 +93,34 @@
       <option value="biohazard">Biohazard</option>
     </select>
     <br>
-    <label for="qty_attacks">Number of attacks</label>
+    <label for="qty_attacks">Number of attacks:</label>
     <input type="text" name="qty_attacks" value="{{ record['qty_attacks'] }}" placeholder="Maximum attacks attempted"/>
     <br>
-    <label for="fireproof">Fireproof?</label>
+    <label for="fireproof">Fireproof:</label>
     <select name="fireproof" value="{{ record['fireproof'] }}">
       <option value="False">False</option>
       <option value="True">True</option>
     </select>
     <br>
-    <label for="insulated">Insulated?</label>
+    <label for="insulated">Insulated:</label>
     <select name="insulated" value="{{ record['insulated'] }}">
       <option value="False">False</option>
       <option value="True">True</option>
     </select>
     <br>
-    <label for="antibiotic">Antibiotic?</label>
+    <label for="antibiotic">Antibiotic:</label>
     <select name="antibiotic" value="{{ record['antibiotic'] }}">
       <option value="False">False</option>
       <option value="True">True</option>
     </select>
     <br>
-    <label for="banging">Banging sound system?</label>
+    <label for="banging">Banging sound system:</label>
     <select name="banging" value="{{ record['banging'] }}">
       <option value="False">False</option>
       <option value="True">True</option>
     </select>
     <br>
-    <label for="algo">Race computer algorithm</label>
+    <label for="algo">Race computer algorithm:</label>
     <select name="algo" value="{{ record['algo'] }}">
       <option value="defensive">Defensive</option>
       <option value="steady">Steady</option>

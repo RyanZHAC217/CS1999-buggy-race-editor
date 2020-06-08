@@ -50,28 +50,76 @@ def create_buggy():
     antibiotic = request.form['antibiotic']
     banging = request.form['banging']
     algo = request.form['algo']
+    
+    total_cost = 0
+    tyre_type_costs = {"knobbly":15, "slick":10, "steelband":20, "reactive":40, "maglev":50}
+    power_type_costs = {"petrol":4, "fusion":400, "steam":3, "bio":5, "electric":20, "rocket":16, "hamster":3, "thermo":300, "solar":40, "wind":20}
+    armour_type_costs = {"none":0, "wood":40, "aluminium":200, "thinsteel":100, "thicksteel":200, "titanium":290}
+    attack_type_costs = {"none":0, "spike":5, "flame":20, "charge":28, "biohazard":30}
+
     if qty_wheels.isdigit() == True:
-      if int(qty_wheels) % 2 == 0:
-        if int(qty_tyres) >= int(qty_wheels):
-          try:
-            msg = "qty_wheels={qty_wheels}" 
-            with sql.connect(DATABASE_FILE) as con:
-               cur = con.cursor()
-               cur.execute("UPDATE buggies set qty_wheels=? , flag_color=?, flag_color_secondary=?, flag_pattern=?, qty_tyres=?, tyres=?, armour=?, power_type=?, power_units=?, aux_power_type=?, aux_power_units=?, hamster_booster=?, attack=?, qty_attacks=?, fireproof=?, insulated=?, antibiotic=?, banging=?, algo=? WHERE id=?", (qty_wheels, flag_color, flag_color_secondary, flag_pattern, qty_tyres, tyres, armour, power_type, power_units, aux_power_type, aux_power_units, hamster_booster, attack, qty_attacks, fireproof, insulated, antibiotic, banging, algo, DEFAULT_BUGGY_ID))
-               con.commit()
-               msg = "Record successfully saved"
-          except:
-            con.rollback()
-            msg = "error in update operation"
-          finally:
-            con.close()
-            return render_template("updated.html", msg = msg)
-        else:
-          msg = "Error, number of tyres must be greater than or equal to number of wheels!"
-          return render_template("updated.html", msg = msg)
+      qty_wheels = int(qty_wheels)
+      if qty_tyres.isdigit() == True:
+        qty_tyres = int(qty_tyres)
+        if qty_attacks.isdigit() == True:
+          qty_attacks = int(qty_attacks)
+          if power_units.isdigit() == True:
+            power_units = int(power_units)
+            if aux_power_units.isdigit() == True:
+              aux_power_units = int(aux_power_units)
+              if hamster_booster.isdigit() == True:
+                hamster_booster = int(hamster_booster)
+                if qty_wheels % 2 == 0:
+                  if qty_tyres >= qty_wheels:
+                    tyre_cost = (qty_tyres*tyre_type_costs[tyres])
+                    power_cost = (power_units*power_type_costs[power_type])
+                    aux_power_cost = (aux_power_units*power_type_costs[aux_power_type])
+                    attack_cost = (qty_attacks*attack_type_costs[attack])
+                    armour_cost = armour_type_costs[armour]
+                    if qty_wheels > 4:
+                      extra_cost = qty_wheels - 4
+                      armour_cost *= (1 + (extra_cost/10))
+                    hamster_cost = hamster_booster*5
+                    if fireproof == 'True':
+                      total_cost += 70
+                    if insulated == 'True':
+                      total_cost += 100
+                    if antibiotic == 'True':
+                      total_cost += 90
+                    if banging == 'True':
+                      total_cost += 42
+                    total_cost += tyre_cost + power_cost + aux_power_cost + attack_cost + armour_cost + hamster_cost
+                    try:
+                      msg = "qty_wheels={qty_wheels}" 
+                      with sql.connect(DATABASE_FILE) as con:
+                         cur = con.cursor()
+                         cur.execute("UPDATE buggies set qty_wheels=? , flag_color=?, flag_color_secondary=?, flag_pattern=?, qty_tyres=?, tyres=?, armour=?, power_type=?, power_units=?, aux_power_type=?, aux_power_units=?, hamster_booster=?, attack=?, qty_attacks=?, fireproof=?, insulated=?, antibiotic=?, banging=?, algo=?, total_cost=? WHERE id=?", (qty_wheels, flag_color, flag_color_secondary, flag_pattern, qty_tyres, tyres, armour, power_type, power_units, aux_power_type, aux_power_units, hamster_booster, attack, qty_attacks, fireproof, insulated, antibiotic, banging, algo, total_cost, DEFAULT_BUGGY_ID))
+                         con.commit()
+                         msg = "Record successfully saved"
+                    except:
+                      con.rollback()
+                      msg = "error in update operation"
+                    finally:
+                      con.close()
+                      return render_template("updated.html", msg = msg)
+                  else:
+                    msg = "Error, number of tyres must be greater than or equal to number of wheels!"
+                    return render_template("updated.html", msg = msg)
+                else:
+                  msg = "Error, invalid input. Must be an even amount of wheels!"
+                  return render_template("updated.html", msg = msg)
+              else:
+                msg = "Error, invalid input. Hamster booster must be an integer!"
+                return render_template("updated.html", msg = msg)
+            else:
+                msg = "Error, invalid input. Auxiliary motive power units must be an integer!"
+                return render_template("updated.html", msg = msg)
+          else:
+                msg = "Error, invalid input. Primary motive power units must be an integer!"
+                return render_template("updated.html", msg = msg)
       else:
-        msg = "Error, invalid input. Must be an even amount of wheels!"
-        return render_template("updated.html", msg = msg)
+        msg = "Error, invalid input. Must be an integer!"
+      return render_template("updated.html", msg = msg)
     else:
       msg = "Error, invalid input. Must be an integer!"
       return render_template("updated.html", msg = msg)
