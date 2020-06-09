@@ -2,7 +2,7 @@
 
 {% block content %}
 
-  <h1>Buggy</h1>
+  <h1 style="text-decoration: underline;">Buggy</h1>
 
 {% for buggy in buggies %}
   <table>
@@ -70,13 +70,11 @@
       <td>Total Cost</td> <td> {{ buggy['total_cost'] }} </td>
     </tr>
     <tr>
-      <td colspan = "1"> <a href="/edit/{{ buggy['id'] }}">Edit Buggy</a> </td>
+      <td colspan = "1"> <a href="/edit/{{ buggy['id'] }}" style="text-decoration-color: orange">Edit Buggy</a> </td>
       <td>
         <form action="/delete/{{ buggy['id'] }}" method="post">
           <input type="submit" class="button" value="Delete Buggy">
         </form>
-      </td>
-      <td>
         <form action="/json/{{ buggy['id'] }}" method="post">
           <input type="submit" class="button" value="Get JSON Data">
         </form>
@@ -85,7 +83,7 @@
   </table>
 {% endfor %}
   <p>
-    <a href="/" class="button">home</a>
+    <a href="/" class="button">Home</a>
   </p>
 
 {% endblock %}
