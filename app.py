@@ -109,7 +109,7 @@ def create_buggy():
                           antibiotic, banging, algo, total_cost) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)''', (qty_wheels, flag_color,
                           flag_color_secondary, flag_pattern, qty_tyres, tyres, armour, power_type, power_units, aux_power_type, aux_power_units,
                           hamster_booster, attack, qty_attacks, fireproof, insulated, antibiotic, banging, algo, total_cost))
-                          msg = "Record successfully saved"
+                          msg = "Buggy successfully created"
                         con.commit()
                     except:
                       con.rollback()
