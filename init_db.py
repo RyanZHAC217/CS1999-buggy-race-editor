@@ -30,8 +30,8 @@ con.execute("""
     flag_color            VARCHAR(20) DEFAULT 'white',
     flag_color_secondary  VARCHAR(20) DEFAULT 'black',
     flag_pattern          VARCHAR(20) DEFAULT 'plain',
-    qty_tyres             INTEGER DEFAULT 4,
     tyres                 VARCHAR(20) DEFAULT 'knobbly',
+    qty_tyres             INTEGER DEFAULT 4,
     armour                VARCHAR(20) DEFAULT 'none',
     power_type            VARCHAR(20) DEFAULT 'petrol',
     power_units           INTEGER DEFAULT 1,
@@ -40,11 +40,11 @@ con.execute("""
     hamster_booster       INTEGER DEFAULT 0,
     attack                VARCHAR(20) DEFAULT 'none',
     qty_attacks           INTEGER DEFAULT 0,
-    fireproof             BOOLEAN DEFAULT False,
-    insulated             BOOLEAN DEFAULT False,
-    antibiotic            BOOLEAN DEFAULT False,
-    banging               BOOLEAN DEFAULT False,
-    algo                  VARCHAR(20),
+    fireproof             VARCHAR(20) DEFAULT False,
+    insulated             VARCHAR(20) DEFAULT False,
+    antibiotic            VARCHAR(20) DEFAULT False,
+    banging               VARCHAR(20) DEFAULT False,
+    algo                  VARCHAR(20) DEFAULT 'steady',
     total_cost            INTEGER
   )
 

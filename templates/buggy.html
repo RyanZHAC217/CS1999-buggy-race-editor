@@ -4,6 +4,7 @@
 
   <h1>Buggy</h1>
 
+{% for buggy in buggies %}
   <table>
     <tr>
       <td>ID:</td> <td> {{ buggy['id'] }} </td>
@@ -68,8 +69,21 @@
     <tr>
       <td>Total Cost</td> <td> {{ buggy['total_cost'] }} </td>
     </tr>
+    <tr>
+      <td colspan = "1"> <a href="/edit/{{ buggy['id'] }}">Edit Buggy</a> </td>
+      <td>
+        <form action="/delete/{{ buggy['id'] }}" method="post">
+          <input type="submit" class="button" value="Delete Buggy">
+        </form>
+      </td>
+      <td>
+        <form action="/json/{{ buggy['id'] }}" method="post">
+          <input type="submit" class="button" value="Get JSON Data">
+        </form>
+      </td>
+    </tr>
   </table>
-
+{% endfor %}
   <p>
     <a href="/" class="button">home</a>
   </p>

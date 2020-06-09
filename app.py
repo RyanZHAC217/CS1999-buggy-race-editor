@@ -28,7 +28,7 @@ def create_buggy():
     cur = con.cursor()
     cur.execute("SELECT * FROM buggies")
     record = cur.fetchone(); 
-    return render_template("buggy-form.html", record = record)
+    return render_template("buggy-form.html", buggy = None)
   elif request.method == 'POST':
     msg=""
     qty_wheels = request.form['qty_wheels']
@@ -73,7 +73,9 @@ def create_buggy():
                   if qty_tyres >= qty_wheels:
                     tyre_cost = (qty_tyres*tyre_type_costs[tyres])
                     power_cost = (power_units*power_type_costs[power_type])
-                    aux_power_cost = (aux_power_units*power_type_costs[aux_power_type])
+                    aux_power_cost = 0
+                    if aux_power_type != 'none':
+                      aux_power_cost = (aux_power_units*power_type_costs[aux_power_type])
                     attack_cost = (qty_attacks*attack_type_costs[attack])
                     armour_cost = armour_type_costs[armour]
                     if qty_wheels > 4:
@@ -90,12 +92,25 @@ def create_buggy():
                       total_cost += 42
                     total_cost += tyre_cost + power_cost + aux_power_cost + attack_cost + armour_cost + hamster_cost
                     try:
-                      msg = "qty_wheels={qty_wheels}" 
+                      buggy_id = request.form['id']
                       with sql.connect(DATABASE_FILE) as con:
-                         cur = con.cursor()
-                         cur.execute("UPDATE buggies set qty_wheels=? , flag_color=?, flag_color_secondary=?, flag_pattern=?, qty_tyres=?, tyres=?, armour=?, power_type=?, power_units=?, aux_power_type=?, aux_power_units=?, hamster_booster=?, attack=?, qty_attacks=?, fireproof=?, insulated=?, antibiotic=?, banging=?, algo=?, total_cost=? WHERE id=?", (qty_wheels, flag_color, flag_color_secondary, flag_pattern, qty_tyres, tyres, armour, power_type, power_units, aux_power_type, aux_power_units, hamster_booster, attack, qty_attacks, fireproof, insulated, antibiotic, banging, algo, total_cost, DEFAULT_BUGGY_ID))
-                         con.commit()
-                         msg = "Record successfully saved"
+                        cur = con.cursor()
+                        if buggy_id.isdigit():
+                          cur.execute('''UPDATE buggies set qty_wheels=?, flag_color=?, flag_color_secondary=?, flag_pattern=?,
+                          qty_tyres=?, tyres=?, armour=?, power_type=?, power_units=?, aux_power_type=?, aux_power_units=?, hamster_booster=?,
+                          attack=?, qty_attacks=?, fireproof=?, insulated=?, antibiotic=?, banging=?, algo=?, total_cost=? WHERE id=?''', 
+                          (qty_wheels, flag_color, flag_color_secondary, flag_pattern, qty_tyres, tyres, armour, power_type, power_units,
+                          aux_power_type, aux_power_units, hamster_booster, attack, qty_attacks, fireproof, insulated, antibiotic, banging,
+                          algo, total_cost, buggy_id))
+                          msg = "Buggy successfully edited"
+                        else:
+                          cur.execute('''INSERT INTO buggies (qty_wheels, flag_color, flag_color_secondary, flag_pattern, qty_tyres, tyres, armour,
+                          power_type, power_units, aux_power_type, aux_power_units, hamster_booster, attack, qty_attacks, fireproof, insulated,
+                          antibiotic, banging, algo, total_cost) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)''', (qty_wheels, flag_color,
+                          flag_color_secondary, flag_pattern, qty_tyres, tyres, armour, power_type, power_units, aux_power_type, aux_power_units,
+                          hamster_booster, attack, qty_attacks, fireproof, insulated, antibiotic, banging, algo, total_cost))
+                          msg = "Record successfully saved"
+                        con.commit()
                     except:
                       con.rollback()
                       msg = "error in update operation"
@@ -133,16 +148,20 @@ def show_buggies():
   con.row_factory = sql.Row
   cur = con.cursor()
   cur.execute("SELECT * FROM buggies")
+  records = cur.fetchall(); 
+  return render_template("buggy.html", buggies = records)
+
+#------------------------------------------------------------
+# a page to edit the buggy
+#------------------------------------------------------------
+@app.route('/edit/<buggy_id>')
+def edit_buggy(buggy_id):
+  con = sql.connect(DATABASE_FILE)
+  con.row_factory = sql.Row
+  cur = con.cursor()
+  cur.execute("SELECT * FROM buggies WHERE id=?", (buggy_id))
   record = cur.fetchone(); 
-  return render_template("buggy.html", buggy = record)
-
-#------------------------------------------------------------
-# a page for displaying the buggy
-#------------------------------------------------------------
-@app.route('/new')
-def edit_buggy():
-  return render_template("buggy-form.html")
-
+  return render_template("buggy-form.html", buggy = record)
 
 #------------------------------------------------------------
 # get JSON from current record
@@ -150,12 +169,12 @@ def edit_buggy():
 #   using it because we'll be dipping diectly into the
 #   database
 #------------------------------------------------------------
-@app.route('/json')
-def summary():
+@app.route('/json/<buggy_id>', methods = ['POST'])
+def summary(buggy_id):
   con = sql.connect(DATABASE_FILE)
   con.row_factory = sql.Row
   cur = con.cursor()
-  cur.execute("SELECT * FROM buggies WHERE id=? LIMIT 1", (DEFAULT_BUGGY_ID))
+  cur.execute("SELECT * FROM buggies WHERE id=? LIMIT 1", (buggy_id))
   return jsonify(
       {k: v for k, v in dict(zip(
         [column[0] for column in cur.description], cur.fetchone())).items()
@@ -169,13 +188,13 @@ def summary():
 #   there always being a record to update (because the
 #   student needs to change that!)
 #------------------------------------------------------------
-@app.route('/delete', methods = ['POST'])
-def delete_buggy():
+@app.route('/delete/<buggy_id>', methods = ['POST'])
+def delete_buggy(buggy_id):
   try:
     msg = "deleting buggy"
     with sql.connect(DATABASE_FILE) as con:
       cur = con.cursor()
-      cur.execute("DELETE FROM buggies")
+      cur.execute("DELETE FROM buggies WHERE id=?", (buggy_id))
       con.commit()
       msg = "Buggy deleted"
   except:
