@@ -84,12 +84,16 @@ def create_buggy():
                     hamster_cost = hamster_booster*5
                     if fireproof == 'True':
                       total_cost += 70
+                      fireproof = '1'
                     if insulated == 'True':
                       total_cost += 100
+                      insulated = '1'
                     if antibiotic == 'True':
                       total_cost += 90
+                      antibiotic = '1'
                     if banging == 'True':
                       total_cost += 42
+                      banging = '1'
                     total_cost += tyre_cost + power_cost + aux_power_cost + attack_cost + armour_cost + hamster_cost
                     try:
                       buggy_id = request.form['id']
