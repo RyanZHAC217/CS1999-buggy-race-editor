@@ -133,10 +133,10 @@ def create_buggy():
                 msg = "Error, invalid input. Primary motive power units must be an integer!"
                 return render_template("updated.html", msg = msg)
       else:
-        msg = "Error, invalid input. Must be an integer!"
+        msg = "Error, invalid input. Number of tyres must be an integer!"
       return render_template("updated.html", msg = msg)
     else:
-      msg = "Error, invalid input. Must be an integer!"
+      msg = "Error, invalid input. Number of wheels must be an integer!"
       return render_template("updated.html", msg = msg)
 
 #------------------------------------------------------------
