@@ -79,3 +79,9 @@ table td, table th {
   border:3px solid orange;
   padding:10px;
 }
+.secondHeader {
+  color: black;
+  text-decoration: underline;
+  font-size: 1.2em;
+  font-weight: normal;
+}
